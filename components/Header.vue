@@ -1,10 +1,10 @@
 <template>
   <div class="header flex">
-    <div class="header__logo">Trace</div>
+    <div class="header__logo" @click="$router.push('/')">Trace</div>
     <nav class="header__right flex">
       <div class="header__username" v-if="$auth.loggedIn">Name：{{ $auth.user.name }}</div>
       <img src="/images/cart.png" alt="" class="header__logo" @click="$router.push('/cart')">
-      <img src="/images/user.png" alt="" class="header__logo" @click="$router.push('/')">
+      <img src="/images/user.png" alt="" class="header__logo" @click="$router.push('/mypage')">
       <img src="/images/logout.png" alt="" class="header__logo" @click="logout" v-if="$auth.loggedIn">
     </nav>
   </div>

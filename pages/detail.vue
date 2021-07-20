@@ -4,30 +4,29 @@
     <div class="detail">
       <div class="detail__upper flex">
         <div class="detail__imgarea">
-          <img src="/images/beigesandal.jpg" alt="" class="detail__imgarea-img">
+          <img :src="`${$axios.defaults.baseURL}`+ product.image_path" alt="" class="detail__imgarea-img">
         </div>
         <div class="detail__upper-right">
-          <p class="detail__name">sandal</p>
-          <p class="detail__fee">¥3,000(税込)</p>
-          <div class="detail__volume">
-            <label for="volume" class="detail__volume-label">個数</label>
-            <input type="number" min="0" step="1" name="個数" id="volume" class="detail__volume-form">
+          <p class="detail__name">{{ product.name }}</p>
+          <p class="detail__fee">¥{{ product.price | addComma }}(税込)</p>
+          <div class="detail__quantity">
+            <label for="quantity" class="detail__quantity-label">個数</label>
+            <input type="number" min="0" step="1" v-model="quantity" name="個数" id="quantity" class="detail__quantity-form">
           </div>
           <button class="detail__button button flex">
             <img src="/images/whitecart.png" alt="">
-            <p class="detail__button-text">カートに入れる</p>
+            <p class="detail__button-text" @click="addCart(product)">カートに入れる</p>
           </button>
         </div>
       </div>
       <div class="detail__bottom">
-        <h2 class="detail__bottom-title">毎日履きたくなる、スニーカー</h2>
-        <p class="detail__bottom-desc">朝の支度が、格段にラクになる一足。シンプルで飽きのこないチームコートは、
-          クリーンでモダンなデザインが魅力。合わせたいのは、デニムやバギースウェット。
-          スタイリッシュなレザーアッパーとフレッシュなカラーが、どんなコーディネートも引き締めてくれる。
-          もちろん、履き心地の良さもいうことなし。
-        </p>
+        <h2 class="detail__bottom-title">{{ product.heading }}</h2>
+        <p class="detail__bottom-desc">{{ product.description }}</p>
       </div>
     </div>
+    <p>
+      {{carts}}
+    </p>
     <Footer/>
   </div>
 </template>
@@ -40,6 +39,39 @@ export default {
     Header,
     Footer,
   },
+  data() {
+    return {
+      productId: this.$route.query.product_id,
+      product:[],
+      quantity: 0,
+    }
+  },
+  computed: {
+    carts() {
+      return this.$store.getters['cart/getCart'];
+    }
+  },
+  methods: {
+    async getDitail() {
+      const resData = await this.$axios.get(
+        "http://127.0.0.1:8000/api/product/" + this.productId
+      );
+      this.product = resData.data.data;
+    },
+    addCart(){
+      this.$store.dispatch('cart/setCart', {user_id:this.$auth.user.id, product_id:this.productId, quantity:this.quantity});
+      this.quantity = 0;
+      // this.$router.push("/mypage");
+    },
+  },
+  created(){
+    if(this.$auth.user){
+      this.getDitail();
+    }else{
+      this.$router.push("/auth");
+    }
+  }
+
 }
 </script>
 

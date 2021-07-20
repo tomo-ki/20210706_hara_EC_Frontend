@@ -11,9 +11,9 @@
               <p class="cart__order-item--name">sandal</p>
               <div class="cart__order-item--delete">削除する</div>
             </div>
-            <div class="cart__order-volume flex">
-              <label for="volume" class="cart__order-volume--label">個数</label>
-              <input type="number" min="0" id="volume" name="個数" class="cart__order-volume--form">
+            <div class="cart__order-quantity flex">
+              <label for="quantity" class="cart__order-quantity--label">個数</label>
+              <input type="number" min="0" v-model="quantity" id="quantity" name="個数" class="cart__order-quantity--form">
               <p class="cart__order-item--fee">¥3,000(税込)</p>
             </div>
           </div>
@@ -35,6 +35,16 @@ export default {
   components: {
     Header,
     Footer,
+  },
+  data(){
+    return {
+      quantity: 0,
+    }
+  },
+  created(){
+    if(!this.$auth.user){
+      this.$router.push("/auth");
+    }
   },
 }
 </script>
