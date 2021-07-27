@@ -24,9 +24,6 @@
         <p class="detail__bottom-desc">{{ product.description }}</p>
       </div>
     </div>
-    <p>
-      {{carts}}
-    </p>
     <Footer/>
   </div>
 </template>
@@ -46,11 +43,6 @@ export default {
       quantity: 0,
     }
   },
-  computed: {
-    carts() {
-      return this.$store.getters['cart/getCart'];
-    }
-  },
   methods: {
     async getDitail() {
       const resData = await this.$axios.get(
@@ -59,9 +51,17 @@ export default {
       this.product = resData.data.data;
     },
     addCart(){
-      this.$store.dispatch('cart/setCart', {user_id:this.$auth.user.id, product_id:this.productId, quantity:this.quantity});
-      this.quantity = 0;
-      // this.$router.push("/mypage");
+      if(this.quantity == 0){
+        alert('商品の個数が0個です');
+      }else{
+        const cartData = {
+          user_id:this.$auth.user.id,
+          product_id:this.productId,
+          quantity:this.quantity,
+        };
+        this.$store.dispatch('cart/setCart', cartData);
+        this.$router.push("/cart");
+      }
     },
   },
   created(){

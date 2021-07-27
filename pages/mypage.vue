@@ -2,13 +2,13 @@
   <div id="mypage">
     <Header/>
     <div class="mypage flex-column">
-      <h2 class="mypage__title">購入履歴{{ $auth.user.id }}</h2>
+      <h2 class="mypage__title">購入履歴</h2>
       <div class="mypage__historys">
-        <div v-for="history in historyLists" :key="history.id" class="mypage__history flex">
+        <div v-for="history in reverseHistories" :key="history.id" class="mypage__history flex">
           <img :src="`${$axios.defaults.baseURL}`+ history.image_path" alt="" class="mypage__history-img">
           <div class="mypage__history-textarea flex-column">
             <div class="mypage__history-top">
-              <p class="mypage__history-top--uuid">注文番号:{{ history.uuid }}</p>
+              <p class="mypage__history-top--uuid">注文番号:{{ history.order_uuid }}</p>
             </div>
             <div class="mypage__history-center flex">
               <div class="mypage__history-center--left">
@@ -27,7 +27,6 @@
         </div>
       </div>
     </div>
-    <p>{{carts}}</p>
     <Footer class="footer"/>
   </div>
 </template>
@@ -46,9 +45,9 @@ export default {
     };
   },
   computed: {
-    carts() {
-      return this.$store.getters['cart/getCart'];
-    }
+    reverseHistories() {
+      return this.historyLists.slice().reverse();
+    },
   },
   methods: {
     async getHistory(){

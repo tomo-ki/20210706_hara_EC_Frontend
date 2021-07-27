@@ -15,7 +15,7 @@
         <div class="auth__error error">{{ ProviderProps.errors[0] }}</div>
         <div class="auth__form flex">
           <label for="l-password">パスワード:</label>
-          <input type="password" v-model="password" name="パスワード" id="l-password" placeholder="password">
+          <input type="password" @keyup.enter="login" v-model="password" name="パスワード" id="l-password" placeholder="password">
         </div>
       </validation-provider>
     </div>

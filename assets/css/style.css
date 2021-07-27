@@ -271,14 +271,16 @@
   margin: 50px 5% 400px;
 }
 .cart__order{
-  height: 150px;
   justify-content: space-between;
 }
 .cart__order-left{
   border-top: 1px solid #c4c3c3;
-  border-bottom: 1px solid #c4c3c3;
-  padding: 5px 0;
   width: 60%;
+}
+.cart__order-list{
+  border-bottom: 1px solid #c4c3c3;
+  padding: 10px 0;
+  height: 150px;
 }
 .cart__order-img{
   height: 100%;
@@ -325,6 +327,7 @@
   align-items: center;
   justify-content: center;
   width: 30%;
+  height: 200px;
 }
 .cart__order-sum{
   font-size: 20px;

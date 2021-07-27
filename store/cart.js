@@ -5,31 +5,48 @@ export const state = () => ({
 
 // mutations: stateの上書き(代入)
 export const mutations = {
-  add(state, { userId, productId, quantity }) {
+  add(state, cartData ) {
     state.cart.push({
-        user_id: userId,
-        product_id: productId,
-        quantity: quantity,
-      })
-    },
-    remove(state, { product }) {
-        state.cart.splice(state.cart.indexOf(product), 1)
-    },
+      id: state.cart.length + 1,
+      user_id: cartData.user_id,
+      product_id: cartData.product_id,
+      quantity: cartData.quantity,
+    });
+  },
+  update(state, updateCartData) {
+    let cart = [];
+    updateCartData.forEach((n) => {
+      cart.push(Object.assign({},n))
+    });
+    state.cart = cart;
+  },
+  remove(state, { cart }) {
+    state.cart.splice(state.cart.indexOf(cart), 1);
+  },
+  allRemove(state) {
+    state.cart.splice(-state.cart.length);
+  },
 }
 
 // getters: stateの情報を取得。別gettersの呼び出しも可能
 export const getters = {
-  getCart (state) {
-      return state.cart
+  getCart(state) {
+    return state.cart;
   }
 }
 
 // actions: storeの上書き以外の処理や非同期通信。別actionsの呼び出しも可能
 export const actions = {
-  setCart(vuexContext, { userId, productId, quantity }) {
-    vuexContext.commit('add', { userId, productId, quantity })
+  setCart(vuexContext, cartData) {
+    vuexContext.commit('add', cartData);
   },
-  remove(vuexContext, product) {
-    vuexContext.commit('remove', product)
-  }
+  updateCart(vuexContext, updateCartData) {
+    vuexContext.commit('update', updateCartData);
+  },
+  remove(vuexContext, cart) {
+    vuexContext.commit('remove', cart);
+  },
+  allRemove(vuexContext) {
+    vuexContext.commit('allRemove');
+  },
 }

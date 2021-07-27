@@ -52,8 +52,8 @@ export default {
           email: this.email,
           password: this.password,
         });
-        alert('新規会員登録が完了しました.ログインしてください');
-        this.$router.push("/auth");
+        alert('新規会員登録が完了しました');
+        location.reload();
       } catch {
         alert("メールアドレスがすでに登録されています");
       }

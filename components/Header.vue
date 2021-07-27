@@ -23,5 +23,9 @@ export default {
       }
     },
   },
+  beforeRouteLeave (to, from, next) {
+    this.$emit('beforeRouteLeave');
+    next();
+  },
 };
 </script>

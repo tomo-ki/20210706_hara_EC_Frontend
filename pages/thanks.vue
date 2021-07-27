@@ -6,9 +6,9 @@
       <p class="thanks__desc">注文内容と配送状況についてはEメールでお知らせをご確認ください。</p>
       <div class="thanks__square flex-column">
         <p class="thanks__square-p1">注文番号</p>
-        <p class="thanks__square-p2">ajdsafh-dsajf-asdfb-afdsnfb</p>
+        <p class="thanks__square-p2">{{uuid}}</p>
         <p class="thanks__square-p3">で承りました</p>
-        <button class="thanks__button button" @click="$router.push('/')">ショッピングを続ける</button>
+        <button class="thanks__button button" @click="toHome">ショッピングを続ける</button>
       </div>
     </div>
     <Footer/>
@@ -22,6 +22,27 @@ export default {
   components: {
     Header,
     Footer,
+  },
+  data() {
+    return {
+      uuid: this.$route.query.id,
+    }
+  },
+  computed: {
+    carts() {
+      return this.$store.getters['cart/getCart'];
+    },
+  },
+  methods: {
+    toHome(){
+      this.$router.push('/');
+    },
+    allRemoveCart() {
+      this.$store.dispatch('cart/allRemove');
+    },
+  },
+  created(){
+    this.allRemoveCart();
   },
 }
 </script>

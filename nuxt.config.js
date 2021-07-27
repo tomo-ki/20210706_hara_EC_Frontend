@@ -9,7 +9,7 @@ export default {
   head: {
     title: 'Trace',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'ja'
     },
     meta: [
       { charset: 'utf-8' },
@@ -31,7 +31,7 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     { src: '@/plugins/vee-validate.js' },
-    { src: '@/plugins/filter.js'}
+    { src: '@/plugins/filter.js' },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
