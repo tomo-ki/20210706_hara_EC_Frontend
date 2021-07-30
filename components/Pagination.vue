@@ -252,9 +252,10 @@ export default {
 .item-dots{
   align-items: flex-end;
   justify-content: space-between;
-  width: 30px;
+  width: 20px;
   height: 30px;
-  margin: 0 5px;
+  margin: 0 10px;
+  padding: 5px 0;
   font-size: 14px;
 }
 .dot{

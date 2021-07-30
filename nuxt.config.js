@@ -32,7 +32,6 @@ export default {
   plugins: [
     { src: '@/plugins/vee-validate.js' },
     { src: '@/plugins/filter.js' },
-    { src: '@/plugins/pagination.js'},
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
