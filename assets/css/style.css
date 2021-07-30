@@ -286,7 +286,7 @@ li{
 .cart__order-list{
   border-bottom: 1px solid #c4c3c3;
   padding: 10px 0;
-  height: 150px;
+  height: 200px;
 }
 .cart__order-img{
   height: 100%;
@@ -407,7 +407,7 @@ li{
 }
 .mypage__history{
   width: 100%;
-  height: 150px;
+  height: 200px;
   border-bottom: solid 1px #c4c3c3;
   padding: 10px 0;
 }
