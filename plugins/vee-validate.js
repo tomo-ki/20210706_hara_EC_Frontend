@@ -25,6 +25,7 @@ const ja = {
     "min": "{_field_}は{length}文字以上でなければなりません",
     "min_value": "{_field_}は{min}以上でなければなりません",
     "required": "{_field_}は必須項目です",
+    "integer": "{_field_}は整数でなければなりません"
   }
 };
 localize('ja', ja)

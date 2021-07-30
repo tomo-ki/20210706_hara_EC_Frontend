@@ -7,3 +7,12 @@ Vue.filter('addComma', function (value) {
     return '';
   }
 })
+
+import format from 'date-fns/format'
+Vue.filter('formatDate', (date) => {
+  if (date) {
+    return format(date, 'yyyy年MM月dd日');
+  } else {
+    return '';
+  }
+})

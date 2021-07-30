@@ -32,6 +32,7 @@ export default {
   plugins: [
     { src: '@/plugins/vee-validate.js' },
     { src: '@/plugins/filter.js' },
+    { src: '@/plugins/pagination.js'},
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -39,14 +40,14 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
-    '@nuxtjs/date-fns',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    '@nuxtjs/auth-next'
+    '@nuxtjs/auth-next',
+    '@nuxtjs/date-fns',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios

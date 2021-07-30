@@ -5,22 +5,25 @@
       <h2>ショッピングカート</h2>
       <div class="cart__order flex">
         <div class="cart__order-left">
-          <div v-for="cart in cloneCart" :key="cart.id">
+          <div v-for="cart in reverseCart" :key="cart.id">
             <div v-if="cart.user_id == $auth.user.id">
               <div v-for="product in productLists" :key="product.id" class="flex-column">
                 <div v-if="cart.product_id == product.id" class="cart__order-list flex">
                   <img :src="`${$axios.defaults.baseURL}`+ product.image_path" @click="toDetailPage(product.id)" alt="" class="cart__order-img hover">
-                  <div class="cart__order-item flex">
+                  <validation-provider v-slot="ProviderProps" rules="required|integer" class="cart__order-item flex">
                     <div class="cart__order-item--left">
                       <p @click="toDetailPage(product.id)" class="cart__order-item--name hover">{{product.name}}</p>
                       <div @click="removeCart(cart)" class="cart__order-item--delete">削除する</div>
                     </div>
-                    <div class="cart__order-quantity flex">
-                      <label for="quantity" class="cart__order-quantity--label">個数</label>
-                      <input type="number" min="0" v-model="cart.quantity" id="quantity" name="個数" class="cart__order-quantity--form">
-                      <p class="cart__order-item--fee">¥{{ product.price | addComma }}(税込)</p>
+                    <div class="cart__order-quantity flex-column">
+                      <div class="cart__error error">{{ ProviderProps.errors[0] }}</div>
+                      <div class="cart__order-formarea flex">
+                        <label for="quantity" class="cart__order-quantity--label">個数</label>
+                        <input type="number" min="1" v-model="cart.quantity" id="quantity" name="個数" class="cart__order-quantity--form">
+                        <p class="cart__order-item--fee">¥{{ product.price | addComma }}(税込)</p>
+                      </div>
                     </div>
-                  </div>
+                  </validation-provider>
                 </div>
               </div>
             </div>
@@ -28,7 +31,9 @@
         </div>
         <div class="cart__order-right flex-column">
           <p class="cart__order-sum">合計：¥{{ totalPrice | addComma }} 税込</p>
-          <button class="cart__order-button button" @click="toThanksPage()">注文する</button>
+          <button
+            class="cart__order-button button" @click="toThanksPage()"
+          >注文する</button>
         </div>
       </div>
     </div>
@@ -57,6 +62,9 @@ export default {
       get() {
         return this.$store.getters['cart/getCart'];
       },
+    },
+    reverseCart(){
+      return this.cloneCart.slice().reverse();
     },
     totalPrice(){
       let sum = 0;
@@ -129,9 +137,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-/* footer{
-  
-} */
-</style>

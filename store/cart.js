@@ -24,7 +24,7 @@ export const mutations = {
     state.cart.splice(state.cart.indexOf(cart), 1);
   },
   allRemove(state) {
-    state.cart.splice(-state.cart.length);
+    state.cart.splice(0, state.cart.length);
   },
 }
 

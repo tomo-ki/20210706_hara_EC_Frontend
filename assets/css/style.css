@@ -6,6 +6,10 @@
   flex-direction: column;
 }
 
+li{
+  list-style: none;
+}
+
 
 .button{
   background-color: rgb(105, 159, 24);
@@ -234,7 +238,9 @@
   margin-top: 12px;
 }
 .detail__quantity{
-  margin: 15px 0;
+  margin-bottom: 20px;
+  justify-content: flex-end;
+  height: 40px;
 }
 .detail__quantity-label{
   font-size: 14px;
@@ -307,6 +313,13 @@
   cursor: pointer;
 }
 .cart__order-quantity{
+  align-items: center;
+}
+.cart__error{
+  text-align: left;
+  width: 100%;
+}
+.cart__order-formarea{
   align-items: center;
 }
 .cart__order-quantity--label{

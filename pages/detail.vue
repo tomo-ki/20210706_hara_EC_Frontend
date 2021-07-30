@@ -9,13 +9,18 @@
         <div class="detail__upper-right">
           <p class="detail__name">{{ product.name }}</p>
           <p class="detail__fee">¥{{ product.price | addComma }}(税込)</p>
-          <div class="detail__quantity">
-            <label for="quantity" class="detail__quantity-label">個数</label>
-            <input type="number" min="0" step="1" v-model="quantity" name="個数" id="quantity" class="detail__quantity-form">
-          </div>
-          <button class="detail__button button flex">
+          <validation-provider v-slot="ProviderProps" rules="integer" class="detail__quantity flex-column">
+            <div class="detail__error error">{{ ProviderProps.errors[0] }}</div>
+            <div class="detail__formarea">
+              <label for="quantity" class="detail__quantity-label">個数</label>
+              <input type="number" min="0" step="1" v-model="quantity" name="個数" id="quantity" class="detail__quantity-form">
+            </div>
+          </validation-provider>
+          <button
+            class="detail__button button flex" @click="addCart(product)" type="button"
+          >
             <img src="/images/whitecart.png" alt="">
-            <p class="detail__button-text" @click="addCart(product)">カートに入れる</p>
+            <p class="detail__button-text">カートに入れる</p>
           </button>
         </div>
       </div>
@@ -40,7 +45,7 @@ export default {
     return {
       productId: this.$route.query.product_id,
       product:[],
-      quantity: 0,
+      quantity: 1,
     }
   },
   methods: {
@@ -51,9 +56,12 @@ export default {
       this.product = resData.data.data;
     },
     addCart(){
-      if(this.quantity == 0){
-        alert('商品の個数が0個です');
-      }else{
+      if(this.quantity == 0 || this.quantity == null){
+        alert('個数が0個です');
+      }else if(!Number.isInteger(Number(this.quantity))) {
+        alert('個数を正しく入力してください');
+      }
+      else{
         const cartData = {
           user_id:this.$auth.user.id,
           product_id:this.productId,
