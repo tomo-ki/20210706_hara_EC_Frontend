@@ -113,7 +113,8 @@ export default {
         let newCart = this.cloneCart[Number(this.cloneCart.length)-1];
         for(const cart of this.cloneCart.slice(0,Number(this.cloneCart.length)-1)){
           if(newCart.product_id == cart.product_id){
-            cart.quantity += newCart.quantity;
+            cart.quantity = Number(cart.quantity);
+            cart.quantity += Number(newCart.quantity);
             this.removeCart(newCart);
           }
         }
