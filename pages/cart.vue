@@ -5,7 +5,7 @@
       <h2>ショッピングカート</h2>
       <div class="cart__order flex">
         <div class="cart__order-left">
-          <div v-for="cart in cloneCart" :key="cart.id">
+          <div v-for="cart in reverseCloneCart" :key="cart.id">
             <div v-if="cart.user_id == $auth.user.id">
               <div v-for="product in productLists" :key="product.id" class="flex-column">
                 <div v-if="cart.product_id == product.id" class="cart__order-list flex">
@@ -54,6 +54,7 @@ export default {
     return {
       productLists: [],
       cloneCart:[],
+      reverseCloneCart: [],
       uuid: uuidv4(),
     }
   },
@@ -106,7 +107,6 @@ export default {
       this.carts.forEach((n) => {
         this.cloneCart.push(Object.assign({},n))
       });
-      this.duplicateCloneCart();
     },
     duplicateCloneCart() {
       if(Number(this.cloneCart.length) > 1){
@@ -119,6 +119,9 @@ export default {
           }
         }
       };
+    },
+    reverseCart() {
+      this.reverseCloneCart = this.cloneCart.slice().reverse();
     },
     removeCart(cart) {
       // this.$store.dispatch('cart/remove', cart);
@@ -140,6 +143,8 @@ export default {
     if(this.$auth.user){
       this.getCart();
       this.makecloneCart();
+      this.duplicateCloneCart();
+      this.reverseCart();
     }else{
       this.$router.push("/auth");
     }
