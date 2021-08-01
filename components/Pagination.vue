@@ -219,8 +219,10 @@ export default {
   },
   methods: {
     changePage(pageQuery){
-      this.$router.push(pageQuery);
-      this.$parent('changePage');
+      if( pageQuery !== `?pages=${this.now}`){
+        this.$router.push(pageQuery);
+        this.$parent('changePage');
+      }
     }
   }
 }

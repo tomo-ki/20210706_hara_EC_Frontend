@@ -53,9 +53,22 @@ export default {
           password: this.password,
         });
         alert('新規会員登録が完了しました');
-        location.reload();
+        this.login();
       } catch {
         alert("メールアドレスがすでに登録されています");
+      }
+    },
+    async login() {
+      try {
+        await this.$auth.loginWith("laravelJWT", {
+          data: {
+            email: this.email,
+            password: this.password,
+          },
+        });
+        this.$router.push("/");
+      } catch {
+        alert("メールアドレスまたはパスワードが間違っております");
       }
     },
   },

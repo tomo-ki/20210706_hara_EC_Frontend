@@ -5,7 +5,7 @@
       <h2>ショッピングカート</h2>
       <div class="cart__order flex">
         <div class="cart__order-left">
-          <div v-for="cart in reverseCart" :key="cart.id">
+          <div v-for="cart in cloneCart" :key="cart.id">
             <div v-if="cart.user_id == $auth.user.id">
               <div v-for="product in productLists" :key="product.id" class="flex-column">
                 <div v-if="cart.product_id == product.id" class="cart__order-list flex">
@@ -63,9 +63,6 @@ export default {
         return this.$store.getters['cart/getCart'];
       },
     },
-    reverseCart(){
-      return this.cloneCart.slice().reverse();
-    },
     totalPrice(){
       let sum = 0;
       for(const cart of this.cloneCart){
@@ -77,6 +74,9 @@ export default {
       }
       return sum;
     },
+    cloneCartLength(){
+      return this.cloneCart.length;
+    }
   },
   methods: {
     async getCart(){
@@ -106,9 +106,21 @@ export default {
       this.carts.forEach((n) => {
         this.cloneCart.push(Object.assign({},n))
       });
+      this.duplicateCloneCart();
+    },
+    duplicateCloneCart() {
+      if(Number(this.cloneCart.length) > 1){
+        let newCart = this.cloneCart[Number(this.cloneCart.length)-1];
+        for(const cart of this.cloneCart.slice(0,Number(this.cloneCart.length)-1)){
+          if(newCart.product_id == cart.product_id){
+            cart.quantity += newCart.quantity;
+            this.removeCart(newCart);
+          }
+        }
+      };
     },
     removeCart(cart) {
-      this.$store.dispatch('cart/remove', cart);
+      // this.$store.dispatch('cart/remove', cart);
       this.cloneCart.splice(this.cloneCart.indexOf(cart), 1);
     },
     updateCart(){

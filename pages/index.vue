@@ -22,7 +22,7 @@
         :length="Math.ceil(productLists.length/8)"
         :now="Number($route.query.pages) || 1"
         class="page-nav"
-        @changePage="getProduct"
+        @changePage="getProduct()"
       />
     </div>
     <Footer/>
